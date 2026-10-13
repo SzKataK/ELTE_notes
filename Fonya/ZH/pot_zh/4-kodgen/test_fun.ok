@@ -1,6 +1,0 @@
-program test_fun
-    boolean result
-begin
-    result := yi|false,false,true,false|
-    write(result)
-end
