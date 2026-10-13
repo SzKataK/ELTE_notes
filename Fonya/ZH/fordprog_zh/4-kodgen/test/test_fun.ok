@@ -1,0 +1,13 @@
+program test_fun
+    natural param1
+    natural param2
+    boolean param3
+    natural alma
+begin
+    param1 := 1
+    param2 := 2
+    param3 := true
+    
+    alma := y[param1,param2,param3]
+    write(alma)
+end

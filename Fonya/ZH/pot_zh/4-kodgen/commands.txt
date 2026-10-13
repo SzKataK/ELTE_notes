@@ -1,0 +1,4 @@
+./while test_fun.ok > assemblyfile.asm
+nasm -felf assemblyfile.asm
+gcc -m32 io.c assemblyfile.o -oprogfile
+./progfile

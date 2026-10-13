@@ -1,0 +1,17 @@
+Regex lego
+
+A függvény neve:
+- nem lehet üres => legalább egy kell belőle
+- kizárólag ezekből a betűkből állhat: f,v,t,y
+- minden 'f' előtt 'v' betűnek kell állnia benne
+- két 'v' betű nem állhat egymás után benne
+
+vf
+
+vv nem
+
+vy
+vt
+
+
+(v(f|t|y)|t|y)*v?

@@ -1,0 +1,10 @@
+A függvény neve:
+- nem lehet üres
+- kizárólag ezekből a betűkből állhat: y,i,e,r
+- minden 'y' után 'i' betűnek kell állnia benne
+
+(e|r|i|yi)*
+
+
+
+
