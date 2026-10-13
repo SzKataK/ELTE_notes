@@ -1,0 +1,125 @@
+Milyen Windows script lehetőségeket ismer? Van egyáltalán?
+Igen: Batch, WSH [Windows Scripting Host], PowerShell
+
+Mi biztosítja PowerShell-ben az „autoexec.bat” szerepét?
+Szerepét a PowerShellben az ún. profilok veszik át. A profilok egyszerű fájlban tárolt szkriptek,
+amelyek a PowerShell indításakor automatikusan lefutnak.
+
+Hogyan biztosítják PowerShell alatt a biztonságos script futtatást?
+ExecutionPolicy segítségével, amely alapértelmezetten “Restricted” - azaz nem engedélyez
+futtatást. Átállítás: Set-ExecutionPolicy –ExecutionPolicy UnRestricted. Lehetséges policy
+értékek: Allsigned, Remotesigned, Bypass.
+
+Milyen a PowerShell parancsok felépítése?
+Ige-[Modul]Főnév alakúak a parancsok. (pl: Get-Help)
+Ige: milyen műveletet hajt végre (pl: Get, Set, New, Remove)
+Modul: megmondja milyen modulban található a parancs. Nem minden parancs tartalmaz
+modulnevet. Nem mindenhol szükséges.
+Főnév: Milyen adaton vagy dolgon hajt végre valamit a parancs.
+
+Soroljon fel PowerShell-ben legalább két változóláthatósági formát!
+- global: mindenhol látható az egész PS-ben
+- local: függvény vagy szűrő hatókörében lesz látható. Miután a függvény befejezte a
+futást a benne lévő változók elvesznek.
+- script: a teljes scriptben látható lesz
+- private: Olyan lokális változó amihez a „gyerek” környezetek nem férnek hozzá.
+Egy környezetben definiált változókat, a környezetében használhatjuk, az ebből származó
+függvény, script látja. Azonos nevű esetén a lokálisat látjuk alapból. Változót definiálhatunk
+a scope-jával együtt: $[scope:]név
+
+Hogyan irányítjuk át PowerShell-ben az output-ot? Lehet?
+Új fájl, felülírás: „Hello” > szoveg.txt
+Hozzáfűzés: „szia” >> szoveg.txt
+Nincs < vagy << fajta átirányítás!
+
+Hol és mire használható a dot sourcing?
+Függvény, változó szintjének a módosítása. Mivel függvényen belül is definiálható függvény
+és az nem hívható közvetlenül.
+pl: . .\UtilityFunctions.ps1 futtatás után az UtilityFunctions script függvényei és változói
+használhatóvá válnak a jelenlegi scopeban is.
+
+Mit jelent a PowetShell függvények nevesített paraméterezési lehetősége?
+Van lehetőségünk elnevezni egy script paramétereit, és így nem az $args változóba
+kerülnek.
+param( $x, $y )
+“A `$x={0}” –f $x
+“A `$y={0}” –f $y
+
+Mit jelent az aszimmetrikus kódolás?
+Az aszimmetrikus kódolás azt jelenti, hogy az adatok kódolásához és dekódolásához két
+külön kulcsra van szükség egy helyett. Ez a két kulcs a publikus és a privát kulcs: a
+publikussal titkosítunk, és a priváttal lehet dekódolni (ehhez szükséges a publikus is).
+
+Hány számot takar az RSA publikus vagy privát kulcsa?
+Mind a kettő 2 számot takar (egy prímszámot – hatványkitevő a képletben, ez különbözik
+kulcsonként – és egy másikat, amire nézve azonos maradékosztályba kerül a kódolt adat –
+ez azonos a privát és publikus kulcsnál)
+
+Hogyan irányíthatja át a szabványos bemenetet PowerShellben?
+Sehogy: nincs input átirányítás (<, <<) PowerShell-ben.
+
+Mi helyettesíti a "here input" funkciót PowerShellben?
+here-string, ami gyakorlatilag egy több soros string: @"
+Ez egy több
+soros string
+"@
+
+Mire használható a profile.ps1 állomány? Van a UNIX-ban megfelelője?
+Globális PowerShell profil létrehozására, gyakran használt változókat, alias-okat és
+függvényeket lehet vele definiálni. UNIX megfelelője: $HOME/.profile
+
+Mit értünk PowerShell modulon?
+Hasznos függvények, alias-ok, változók definíciójának gyűjtőhelyét.
+A PowerShell a moduláris felépítésének köszönhetően nagyon sok funkcióval bővíthető. Ezeket a
+funkciókat modulok vagy providerek formájában tudjuk használni a legegyszerűbben. Úgy kell ezt
+elképzelni, hogy például van egy új programunk ,ami valamilyen szolgáltatást valósít meg. Ekkor
+lehetőségünk van egy olyan modult írni hozzá, amelyen keresztül képesek vagyunk kezelni (mi vagy
+épp mások) a PowerShell alapvető parancsainak a segítségével. Például új felhasználókat tudunk
+felvenni, adatbázisokat manipulálni, vagy csak egyszerűen egy távoli gép beállításait kezelni,
+frissíteni.
+
+Elég-e a core PowerShell modul a registry módosításához? Miért?
+Igen, mivel a Core adatforrásai közé tartozik a Registry is.
+Nem, mert core feladata: Szokásos grafikus lehetőségek (File, Edit, View) • Tools – munka ablak font,
+szín beállítások. • Debug – Szokásos nyomkövetési lehetőség!Kiegészítés szükséges.
+
+
+Hogyan használhatja PowerShellben a parancsbehelyettesítést?
+A „$( parancs )” szintakszissal
+`parancs` parancsot végrehajtja, parancs kimenete kerül a helyére 
+
+Hogyan készít szűrőt UNIX illetve Powershell alatt? Lehet?
+Igen, egy parancs után ”|”-t írunk, majd ezt szűrőparancsok (grep, cut stb.) követnek.
+
+Mi a lényegi különbség a UNIX ls és a PowerShell Get-ChildItem parancsának
+eredménye között?
+ls string értéket ad vissza, Get-ChildItem objektumtömböt
+ls mappákon és fájlokon dolgozik, Get-ChildItem képes pl. a registryben is navigálni
+
+Unix vagy Windows PS környezetben tud használni reguláris kifejezést?
+Unix shellekben a különböző parancsok támogatják, pl grep, sed
+PowerShellben a string osztály támogatja a -split, -match és -replace metódusokban
+
+Mi a lényegi különbség a UNIX shell és a PowerShell csővezetéken áthaladó
+adatok között?
+A UNIX shell csővezetékén szöveges adatok haladnak át, a PowerShell-én pedig
+objektumok.
+
+Milyen eszköztárral rendelkezünk UNIX és PowerShell szkriptek írásához?
+UNIX script: vi, vim, nano
+PowerShell: PowerShell ISE
+
+Milyen kiterjesztésűnek kell lennie egy PowerShell és egy shell szkriptnek?
+PowerShell: .ps, .ps1
+
+Mi a különbség az stdout, stderr csatorna között? Léteznek PowerShellben?
+stdout: alapértelmezett kimenet; sikeresen lefutott programok ide írnak ki eredményt.
+stderr: alapértelmezett hibakimenet; hibaüzenetek ide kerülnek kiírásra.
+Igen, létezik PS-ben (Write-Output – Write-Error).
+
+Hogy lehet az stdin csatornát átirányítani Powershellben?
+PowerShell-ben nincs input átirányítás.
+
+Mi a különbség a PowerShell for ciklusa és Foreach-Object utasítása között?
+A for C-szerű. A ForEach-Object parancs végrehajt egy utasítást az adott objektum összes elemén. Az
+objektumot meg lehet adni csővezetéken keresztül vagy az InputObject paraméterrel
